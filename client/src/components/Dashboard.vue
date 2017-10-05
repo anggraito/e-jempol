@@ -2,8 +2,8 @@
   <div class="col-md-12 board">
     <div class="row">
       <div class="user-vote">
-        <button data-toggle="modal" data-target="#userVote">User 1</button>
-        <button data-toggle="modal" data-target="#userVote">Vote 2</button>
+        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(1)'>User 1</button>
+        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(2)'>User 2</button>
       </div>
       <!-- modal Vote -->
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
@@ -14,25 +14,27 @@
               <h2>5</h2>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" value="1">1</button>
-              <button type="button" class="btn btn-default" value="2">2</button>
-              <button type="button" class="btn btn-default" value="3">3</button>
-              <button type="button" class="btn btn-default" value="4">4</button>
-              <button type="button" class="btn btn-default" value="5">5</button>
+              <button type="button" class="btn btn-default" value="1" @click='assignNumberChosen(1)'>1</button>
+              <button type="button" class="btn btn-default" value="2" @click='assignNumberChosen(2)'>2</button>
+              <button type="button" class="btn btn-default" value="3" @click='assignNumberChosen(3)'>3</button>
+              <button type="button" class="btn btn-default" value="4" @click='assignNumberChosen(4)'>4</button>
+              <button type="button" class="btn btn-default" value="5" @click='assignNumberChosen(5)'>5</button>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
-            
+            <button type="button" class="btn btn-default" data-dismiss="modal" @click='sendtoFire'>Submit</button>
+
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+      <button @click='reset'>Mulai lagi</button>
+      <button @click='masukinKeArray()'>Matiin anak orang</button>
       <div class="bottom">
         <div class="user-vote">
-          <button data-toggle="modal" class="die-user" data-target="#userVote">User 3</button>
-          <button data-toggle="modal" data-target="#userVote">Vote 4</button>
+          <button data-toggle="modal" class="die-user" data-target="#userVote" @click='assignPlayerNumber(3)'>User 3</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)'>User 4</button>
         </div>
       </div>
 
-      
+
     </div>
   </div>
 </template>
@@ -40,9 +42,45 @@
 <script>
 export default {
   name: 'board',
+  firebase: function () {
+    return {
+      players: {
+        source: this.$db.ref('/'),
+        asObject: false,
+        cancelCallback: function () {},
+        readyCallback: function () {}
+      }
+    }
+  },
   data () {
     return {
-      msg: 'test'
+      player: null,
+      number: null,
+      giliran: 3,
+      listangka: []
+    }
+  },
+  methods: {
+    assignPlayerNumber (number) {
+      this.player = number
+    },
+    assignNumberChosen (number) {
+      this.number = number
+    },
+    sendtoFire () {
+      this.$db.ref(`player ${this.player}`).set({number: this.number, nyawa: this.giliran})
+    },
+    reset () {
+      this.$db.ref(`player 1`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 2`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 3`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
+    },
+    masukinKeArray () {
+      this.players.forEach(function (data) {
+        this.listangka.push(data.number)
+      })
+      console.log(this.listangka)
     }
   }
 }
