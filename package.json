@@ -1,0 +1,24 @@
+{
+  "name": "e-jempol",
+  "version": "1.0.0",
+  "description": "build realtime multiplayer simple game",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anggraito/e-jempol.git"
+  },
+  "keywords": [
+    "simple-game",
+    "multiplayers-game",
+    "realtime-game"
+  ],
+  "author": "anggraito, yosua, ari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anggraito/e-jempol/issues"
+  },
+  "homepage": "https://github.com/anggraito/e-jempol#readme"
+}
