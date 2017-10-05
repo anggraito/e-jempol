@@ -4,15 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://aridwia:23aridwia@cluster0-shard-00-00-kpzry.mongodb.net:27017,cluster0-shard-00-01-kpzry.mongodb.net:27017,cluster0-shard-00-02-kpzry.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin')
-
+var mongoose = require('mongoose')
+var cors = require('cors')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost/todo', (err) => {
+  if (!err) {
+    console.log('Database connected')
+  } else {
+    console.log('Error while connecting to database')
+  }
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.use('/', index);
 app.use('/users', users);
