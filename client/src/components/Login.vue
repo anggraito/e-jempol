@@ -42,7 +42,7 @@ export default {
         localStorage.setItem('token', loginResponse.data.token)
         localStorage.setItem('name', loginResponse.data.name)
         localStorage.setItem('id', loginResponse.data.id)
-        self.$router.push('/eJempol')
+        self.$router.push('/dashboard')
         console.log('==========datanya', loginResponse.data)
       })
       .catch(err => {
@@ -56,7 +56,7 @@ export default {
     },
     checkLogin () {
       if (localStorage.fbaccesstoken) {
-        this.$router.push('/home')
+        this.$router.push('/dashboard')
       }
     }
   },
