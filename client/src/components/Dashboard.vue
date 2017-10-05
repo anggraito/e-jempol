@@ -57,7 +57,9 @@ export default {
       player: null,
       number: null,
       giliran: 3,
-      listangka: []
+      listangka: [],
+      playermati: [],
+      hapusplayer: []
     }
   },
   methods: {
@@ -77,10 +79,33 @@ export default {
       this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
     },
     masukinKeArray () {
-      this.players.forEach(function (data) {
+      // console.log('ini this player', this.players[0])
+      this.players.forEach(data => {
         this.listangka.push(data.number)
       })
-      console.log(this.listangka)
+      // console.log('ini list angka', this.listangka)
+      var uniq = this.listangka
+      .map((name) => {
+        return {count: 1, name: name}
+      })
+      .reduce((a, b) => {
+        a[b.name] = (a[b.name] || 0) + b.count
+        return a
+      }, {})
+
+      var duplicates = Object.keys(uniq).filter((a) => uniq[a] > 1)
+
+      console.log('ini duplicates', duplicates) // [ 'Nancy' ]
+      this.players.forEach(cari => {
+        // console.log('ini carin numbr', cari.number)
+        if (cari.number === parseInt(duplicates)) {
+          this.playermati.push(cari)
+        }
+      })
+      console.log('player mati', this.playermati['0']['.key'])
+      this.hapusplayer = this.playermati['0']['.key']
+      console.log('ini si hapus', this.hapusplayer)
+      this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
     }
   }
 }
