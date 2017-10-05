@@ -8,12 +8,12 @@
     <div class="waiting-room">
       <h4>Games Room</h4>
       <ul>
-        <li>Pemain Pertama</li>
-        <li>Pemain Kedua</li>
-        <li>Pemain Ketiga</li>
-        <li>...</li>
+        <li>Pemain Pertama <button><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button></li>
+        <li>Pemain Kedua <button><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button></li>
+        <li>Pemain Ketiga <button><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button></li>
+        <li class="no-color">...</li>
       </ul>
-      <button>Start Game</button>
+      <button class="btn start-btn" disabled>Start Game</button>
     </div>
 
   </div>
@@ -44,14 +44,37 @@ img{
 }
 .waiting-room{
   text-align: center;
+  margin: 0 35%;
+  background-color: #f9f9f9;
+  padding-bottom: 20px;
 }
 ul{
-  padding-left: 0;
-  background-color: #f9f9f9;
+  padding: 10px 0 20px 0;
   display: block;
-  margin: 0 35%;
 }
 li{
   list-style: none;
+  background-color: #febb32;
+  border-radius: 50px;
+  margin: 5px 15%;
+  padding: 5px;
+  font-weight: 500;
+}
+h4{
+  color: #febb32;
+  padding: 10px;
+  font-weight: 800;
+  border: 2px dashed #febb32;
+}
+.start-btn{
+  border-radius: 50px;
+  background-color: #febb32;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 5px 35px;
+}
+.no-color{
+  background-color: #f9f9f9;
 }
 </style>
