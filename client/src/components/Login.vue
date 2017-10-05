@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <img src="../assets/images/logo.jpg">
-    <h1>{{ msg }}</h1>
+    <img src="../assets/images/logo.jpg"><br />
     <fb-signin-button
     :params="fbSignInParams"
     @success="onSignInSuccess"
-    @error="onSignInError">
+    @error="onSignInError"
+    style="cursor:pointer">
     Sign in with Facebook
   </fb-signin-button>
   </div>
@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       fbSignInParams: {
-        scope: 'email,public_profile,publish_actions,manage_pages,publish_pages',
+        scope: 'email,public_profile',
         return_scopes: true
       }
     }
@@ -28,19 +28,21 @@ export default {
         // console.log(response)
         // console.log(`Good to see you, ${dude.name}.`)
       localStorage.setItem('fbaccesstoken', response.authResponse.accessToken)
+      localStorage.setItem('fbid', response.authResponse.userID)
       console.log(response)
       this.$http({
         method: 'post',
-        url: `http://localhost:3000/login`,
+        url: `users/signin`,
         headers: {
-          fbaccesstoken: localStorage.getItem('fbaccesstoken')
+          fbaccesstoken: localStorage.getItem('fbaccesstoken'),
+          fbid: localStorage.getItem('fbid')
         }
       })
       .then(loginResponse => {
         localStorage.setItem('token', loginResponse.data.token)
         localStorage.setItem('name', loginResponse.data.name)
         localStorage.setItem('id', loginResponse.data.id)
-        self.$router.push('/home')
+        self.$router.push('/eJempol')
         console.log('==========datanya', loginResponse.data)
       })
       .catch(err => {
