@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Indie+Flower|Niconne|Permanent+Marker|Roboto');
+/*font-family: 'Indie Flower', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Niconne', cursive;
+font-family: 'Fredericka the Great', cursive;
+font-family: 'Roboto', sans-serif;*/
+*{
+	margin:0;
+	padding:0;
+  box-sizing: content-box;
+}
+body{
+  color: #222;
+  font-family: 'Roboto', sans-serif;
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
