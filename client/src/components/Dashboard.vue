@@ -22,16 +22,14 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-     
+
       <div class="btn-setup">
         <div class="img">
           <img src="../assets/images/logo.jpg">
         </div>
         <button class="set" @click='reset'>Mulai lagi</button>
-        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
+        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button><br/>
         <button class="set" @click='doLogout'>Logout</button>
-        <button class="set" @click='jalaninReset'>Mulai Timer</button>
-        <button class="set" @click='stopReset'>Stop Timer</button>
       </div>
       <div class="bottom">
         <div class="user-vote">
@@ -199,16 +197,6 @@ export default {
           this.playermati.push(cari)
         }
       })
-    },
-    jalaninReset () {
-      this.reset()
-      this.masukinKeArray()
-      this.resetTimer = setInterval(this.reset, 25000)
-      this.bunuhTimer = setInterval(this.masukinKeArray, 20000)
-    },
-    stopReset () {
-      clearInterval(this.resetTimer)
-      clearInterval(this.bunuhTimer)
     },
     checkLogin () {
       if (localStorage.fbaccesstoken) {
