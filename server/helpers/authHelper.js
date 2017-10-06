@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const env = process.env.NODE_ENV || "development"
 
-
 const isLogin = (req,res,next) => {
     if(req.headers.token !== null) {
         jwt.verify(req.headers.token, process.env.JWT_SECRET, (err, decoded) => {
