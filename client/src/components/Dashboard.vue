@@ -2,8 +2,8 @@
   <div class="col-md-12 board">
     <div class="row">
       <div class="user-vote">
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(1)'>User 1</button>
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(2)'>User 2</button>
+        <button data-toggle="modal" class="btndis" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled">User 1</button>
+        <button data-toggle="modal" class="btndis" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled">User 2</button>
       </div>
       <!-- modal Vote -->
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
@@ -21,7 +21,7 @@
               <button type="button" class="btn" value="4" @click='assignNumberChosen(4)'>4</button>
               <button type="button" class="btn" value="5" @click='assignNumberChosen(5)'>5</button>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal" @click='sendtoFire'>Submit</button>
+            <button type="button" class="start-btn" data-dismiss="modal" @click='sendtoFire'>Submit</button>
 
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -36,9 +36,9 @@
 
       <div class="bottom">
         <div class="user-vote">
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)'>User 3</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)'>User 4</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)'>User 5</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled">User 3</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled">User 4</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled">User 5</button>
         </div>
       </div>
 
@@ -67,7 +67,8 @@ export default {
       giliran: 1,
       listangka: [],
       playermati: [],
-      hapusplayer: []
+      hapusplayer: [],
+      isDisabled: false
     }
   },
   methods: {
@@ -127,6 +128,17 @@ export default {
         this.hapusplayer = this.playermati[`${i}`]['.key']
         this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
       }
+
+      console.log('ini players ya? -------------->', this.players)
+      var disablePlayer = this.players
+      disablePlayer.forEach(p => {
+        console.log('ini per player', p)
+        console.log('nyawa player', p.nyawa)
+        if (p.nyawa === 0) {
+          console.log('im hereeeee')
+          this.isDisabled = true
+        }
+      })
       // console.log('player mati', this.playermati['0']['.key'])
       // this.hapusplayer = this.playermati['0']['.key']
       // console.log('ini si hapus', this.hapusplayer)
@@ -220,7 +232,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.modal-footer .btn:hover{
+.modal-footer .btn:hover, .modal-footer .btn.selected{
   background-color: #febb32;
   color: #fff;
 }
