@@ -27,8 +27,8 @@
         <div class="img">
           <img src="../assets/images/logo.jpg">
         </div>
-        <button class="set" @click='reset'>Mulai lagi</button>
-        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button><br/>
+        <button class="set" @click='reset'>Game Start</button>
+        <button class="set" @click='masukinKeArray()'>Kill or be Killed</button><br/>
         <button class="set" @click='doLogout'>Logout</button>
       </div>
       <div class="bottom">
