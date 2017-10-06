@@ -26,14 +26,11 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      
-      <div class="btn-setup">
-        <button class="set" @click='reset'>Mulai lagi</button>
-        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
-        <button class="set" @click='cariOrangMati'>Cek yang udah mati</button>
-        <button class="set" @click='jalaninReset'>Mulai Timer</button>
-      </div>
-
+      <button @click='reset'>Mulai lagi</button>
+      <button @click='masukinKeArray()'>Matiin anak orang</button>
+      <button @click='cariOrangMati'>Cek yang udah mati</button>
+      <button @click='jalaninReset'>Mulai Timer</button>
+      <button @click='stopReset'>Stop Timer</button>
       <div class="bottom">
         <div class="user-vote">
           <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled">User 3</button>
@@ -172,8 +169,12 @@ export default {
     jalaninReset () {
       this.reset()
       this.masukinKeArray()
-      this.timer = setInterval(this.reset, 25000)
-      this.timer = setInterval(this.masukinKeArray, 20000)
+      this.resetTimer = setInterval(this.reset, 25000)
+      this.bunuhTimer = setInterval(this.masukinKeArray, 20000)
+    },
+    stopReset () {
+      clearInterval(this.resetTimer)
+      clearInterval(this.bunuhTimer)
     }
   }
 }
