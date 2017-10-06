@@ -2,8 +2,8 @@
   <div class="col-md-12 board">
     <div class="row">
       <div class="user-vote">
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(1)'>User 1</button>
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(2)'>User 2</button>
+        <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled1"><img :src="imageSkull1"/><p> User 1</p></button>
+        <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled2"><img :src="imageSkull2"/><p> User 2</p></button>
       </div>
       <!-- modal Vote -->
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
@@ -21,24 +21,29 @@
               <button type="button" class="btn" value="4" @click='assignNumberChosen(4)'>4</button>
               <button type="button" class="btn" value="5" @click='assignNumberChosen(5)'>5</button>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal" @click='sendtoFire'>Submit</button>
+            <button type="button" class="start-btn" data-dismiss="modal" @click='sendtoFire'>Submit</button>
 
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <button @click='reset'>Mulai lagi</button>
-      <button @click='masukinKeArray()'>Matiin anak orang</button>
-      <button @click='cariOrangMati'>Cek yang udah mati</button>
-      <button @click='jalaninReset'>Mulai Timer</button>
-      <button @click='stopReset'>Stop Timer</button>
+     
+      <div class="btn-setup">
+        <div class="img">
+          <img src="../assets/images/logo.jpg">
+        </div>
+        <button class="set" @click='reset'>Mulai lagi</button>
+        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
+        <button class="set" @click='cariOrangMati'>Cek yang udah mati</button>
+        <button class="set" @click='jalaninReset'>Mulai Timer</button>
+        <button class="set" @click='stopReset'>Stop Timer</button>
+      </div>
       <div class="bottom">
         <div class="user-vote">
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)'>User 3</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)'>User 4</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)'>User 5</button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled3"><img :src="imageSkull3"/><p> User 3</p></button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled4"><img :src="imageSkull4"/><p> User 4</p></button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled5"><img :src="imageSkull5"/><p> User 5</p></button>
         </div>
       </div>
-
 
     </div>
   </div>
@@ -64,7 +69,17 @@ export default {
       giliran: 1,
       listangka: [],
       playermati: [],
-      hapusplayer: []
+      hapusplayer: [],
+      isDisabled1: false,
+      isDisabled2: false,
+      isDisabled3: false,
+      isDisabled4: false,
+      isDisabled5: false,
+      imageSkull1: null,
+      imageSkull2: null,
+      imageSkull3: null,
+      imageSkull4: null,
+      imageSkull5: null
     }
   },
   methods: {
@@ -124,6 +139,37 @@ export default {
         this.hapusplayer = this.playermati[`${i}`]['.key']
         this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
       }
+
+      console.log('ini players ya? -------------->', this.players)
+      var disablePlayer = this.players
+      console.log('disble', disablePlayer[0].nyawa)
+      console.log('valuenya apa? false', this.isDisabled1)
+      for (var a = 0; a < disablePlayer.length; a++) {
+        console.log('ini loopnya a', a)
+        console.log('ini nyawanya si 0', disablePlayer[0].nyawa)
+        console.log('valuenya apa? false', this.isDisabled1)
+        if (disablePlayer[0].nyawa === 0) {
+          this.isDisabled1 = true
+          this.imageSkull1 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+        }
+        if (disablePlayer[1].nyawa === 0) {
+          this.isDisabled2 = true
+          this.imageSkull2 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+        }
+        if (disablePlayer[2].nyawa === 0) {
+          this.isDisabled3 = true
+          this.imageSkull3 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+        }
+        if (disablePlayer[3].nyawa === 0) {
+          this.isDisabled4 = true
+          this.imageSkull4 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+        }
+        if (disablePlayer[4].nyawa === 0) {
+          this.isDisabled5 = true
+          this.imageSkull5 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+        }
+      }
+
       // console.log('player mati', this.playermati['0']['.key'])
       // this.hapusplayer = this.playermati['0']['.key']
       // console.log('ini si hapus', this.hapusplayer)
@@ -180,6 +226,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.img{
+  text-align: center;
+  position: absolute;
+  top: -180px;
+}
+img{
+  width: 150px;;
+}
 .btn-setup{
   position: absolute;
   z-index: 99;
@@ -231,7 +285,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.modal-footer .btn:hover{
+.modal-footer .btn:hover, .modal-footer .btn.selected{
   background-color: #febb32;
   color: #fff;
 }
