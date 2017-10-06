@@ -27,6 +27,7 @@
       </div><!-- /.modal -->
       <button @click='reset'>Mulai lagi</button>
       <button @click='masukinKeArray()'>Matiin anak orang</button>
+      <button @click='cariOrangMati'>Cek yang udah mati</button>
       <div class="bottom">
         <div class="user-vote">
           <button data-toggle="modal" class="die-user" data-target="#userVote" @click='assignPlayerNumber(3)'>User 3</button>
@@ -77,13 +78,15 @@ export default {
       this.$db.ref(`player 2`).set({number: 0, nyawa: 1})
       this.$db.ref(`player 3`).set({number: 0, nyawa: 1})
       this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
+      this.listangka = []
+      this.playermati = []
     },
     masukinKeArray () {
       // console.log('ini this player', this.players[0])
       this.players.forEach(data => {
         this.listangka.push(data.number)
       })
-      // console.log('ini list angka', this.listangka)
+      console.log('ini list angka', this.listangka)
       var uniq = this.listangka
       .map((name) => {
         return {count: 1, name: name}
@@ -95,17 +98,56 @@ export default {
 
       var duplicates = Object.keys(uniq).filter((a) => uniq[a] > 1)
 
-      console.log('ini duplicates', duplicates) // [ 'Nancy' ]
+      for (var j = 0; j < duplicates.length; j++) {
+        if (duplicates[j] === '0') {
+          duplicates.splice(j, 1)
+        }
+      }
+
+      console.log('ini duplicates ', duplicates) // [ 'Nancy' ]
+      this.players.forEach(cari => {
+        // console.log('ini carin numbr', cari.number)
+        console.log('ini parseInt duplicates ', duplicates)
+        console.log(`ini cari.number ${cari.number}`)
+        if (cari.number === parseInt(duplicates)) {
+          this.playermati.push(cari)
+        }
+      })
+
+      console.log('ini yang mati ' + this.playermati)
+      for (var i = 0; i < this.playermati.length; i++) {
+        this.hapusplayer = this.playermati[`${i}`]['.key']
+        this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
+      }
+      // console.log('player mati', this.playermati['0']['.key'])
+      // this.hapusplayer = this.playermati['0']['.key']
+      // console.log('ini si hapus', this.hapusplayer)
+      // this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
+    },
+    cariOrangMati () {
+      // console.log('ini this player', this.players[0])
+      this.players.forEach(data => {
+        this.listangka.push(data.number)
+      })
+      // console.log('ini list angka', this.listangka)
+      var uniq = this.listangka
+      .map((name) => {
+        return {count: 1, name: 0}
+      })
+      .reduce((a, b) => {
+        a[b.name] = (a[b.name] || 0) + b.count
+        return a
+      }, {})
+
+      var duplicates = Object.keys(uniq).filter((a) => uniq[a] > 1)
+
+      console.log('ini duplicates orang mati', duplicates) // [ 'Nancy' ]
       this.players.forEach(cari => {
         // console.log('ini carin numbr', cari.number)
         if (cari.number === parseInt(duplicates)) {
           this.playermati.push(cari)
         }
       })
-      console.log('player mati', this.playermati['0']['.key'])
-      this.hapusplayer = this.playermati['0']['.key']
-      console.log('ini si hapus', this.hapusplayer)
-      this.$db.ref(`${this.hapusplayer}`).set({number: 0, nyawa: 0})
     }
   }
 }
