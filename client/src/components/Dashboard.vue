@@ -25,10 +25,10 @@
 
       <div class="btn-setup">
         <div class="img">
-          <img src="../assets/images/logo.jpg">
+          <h1>Kill or be Killed</h1>
         </div>
         <button class="set" @click='reset'>Mulai lagi</button>
-        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
+        <button class="set" @click='masukinKeArray()' :disabled="btnKill">Matiin anak orang</button>
         <button class="set" @click='doLogout'>Logout</button>
       </div>
       <div class="bottom">
@@ -73,7 +73,8 @@ export default {
       imageSkull2: null,
       imageSkull3: null,
       imageSkull4: null,
-      imageSkull5: null
+      imageSkull5: null,
+      btnKill: false
     }
   },
   methods: {
@@ -91,11 +92,11 @@ export default {
       this.$db.ref(`player ${this.player}`).set({number: this.number, nyawa: this.giliran})
     },
     reset () {
-      this.$db.ref(`player 1`).set({number: 0, nyawa: 1})
-      this.$db.ref(`player 2`).set({number: 0, nyawa: 1})
-      this.$db.ref(`player 3`).set({number: 0, nyawa: 1})
-      this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
-      this.$db.ref(`player 5`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 1`).set({number: 0, nyawa: 1, img: ''})
+      this.$db.ref(`player 2`).set({number: 0, nyawa: 1, img: ''})
+      this.$db.ref(`player 3`).set({number: 0, nyawa: 1, img: ''})
+      this.$db.ref(`player 4`).set({number: 0, nyawa: 1, img: ''})
+      this.$db.ref(`player 5`).set({number: 0, nyawa: 1, img: ''})
       this.listangka = []
       this.playermati = []
     },
@@ -149,6 +150,7 @@ export default {
         if (disablePlayer[0].nyawa === 0) {
           this.isDisabled1 = true
           this.imageSkull1 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
+          this.$db.ref(`player 1`).set({img: 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'})
         }
         if (disablePlayer[1].nyawa === 0) {
           this.isDisabled2 = true
@@ -208,6 +210,11 @@ export default {
   },
   created () {
     this.checkLogin()
+    if (localStorage.getItem('name') === 'Fransiscus Yosua Surojo') {
+      console.log('sedang disini lohh ---->')
+      this.btnKill = true
+    }
+
   }
 }
 </script>
@@ -217,10 +224,14 @@ export default {
 .img{
   text-align: center;
   position: absolute;
-  top: -180px;
+  top: -90px;
 }
-img{
-  width: 150px;;
+h1{
+  font-weight: normal;
+  margin-top: 0;
+  color: #febb32;
+  font-size: 42px;
+  font-family: 'Nosifer', cursive;
 }
 .btn-setup{
   position: absolute;
@@ -246,7 +257,11 @@ img{
   padding: 10px;
 }
 .board{
+  background: url('https://images7.alphacoders.com/322/thumb-1920-322616.jpg');
+  background-size: cover;
+  width: 100%;
   height: 100vh;
+  text-align: center;
 }
 .user-vote .die-user{
   background-color: #565656;
@@ -257,7 +272,7 @@ img{
   justify-content: space-between;
 }
 .board button{
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.5);
   border: none;
   width: 250px;
   height: 250px;
@@ -293,6 +308,9 @@ img{
   margin: 20px 0;
 }
 .user-vote button{
-  border: 2px dashed #febb32;
+  border: 8px dashed #febb32;
+  color: #febb32;
+  font-size: 28px;
+
 }
 </style>
