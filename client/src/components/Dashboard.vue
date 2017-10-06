@@ -74,7 +74,7 @@ export default {
       imageSkull3: null,
       imageSkull4: null,
       imageSkull5: null,
-      btnKill: false
+      btnKill: true
     }
   },
   methods: {
@@ -92,11 +92,11 @@ export default {
       this.$db.ref(`player ${this.player}`).set({number: this.number, nyawa: this.giliran})
     },
     reset () {
-      this.$db.ref(`player 1`).set({number: 0, nyawa: 1, img: ''})
-      this.$db.ref(`player 2`).set({number: 0, nyawa: 1, img: ''})
-      this.$db.ref(`player 3`).set({number: 0, nyawa: 1, img: ''})
-      this.$db.ref(`player 4`).set({number: 0, nyawa: 1, img: ''})
-      this.$db.ref(`player 5`).set({number: 0, nyawa: 1, img: ''})
+      this.$db.ref(`player 1`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 2`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 3`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 5`).set({number: 0, nyawa: 1})
       this.listangka = []
       this.playermati = []
     },
@@ -150,7 +150,6 @@ export default {
         if (disablePlayer[0].nyawa === 0) {
           this.isDisabled1 = true
           this.imageSkull1 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
-          this.$db.ref(`player 1`).set({img: 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'})
         }
         if (disablePlayer[1].nyawa === 0) {
           this.isDisabled2 = true
@@ -210,11 +209,13 @@ export default {
   },
   created () {
     this.checkLogin()
-    if (localStorage.getItem('name') === 'Fransiscus Yosua Surojo') {
+    console.log(localStorage.getItem('fbid'))
+    if (localStorage.getItem('fbid') === '1874685692544156' || localStorage.getItem('fbid') === 1874685692544156) {
       console.log('sedang disini lohh ---->')
-      this.btnKill = true
+      console.log(this.btnKill)
+      this.btnKill = false
+      console.log(this.btnKill)
     }
-
   }
 }
 </script>
@@ -266,6 +267,9 @@ h1{
 .user-vote .die-user{
   background-color: #565656;
   color: #febb32;
+}
+img{
+  width: 50%;
 }
 .user-vote{
   display: flex;
