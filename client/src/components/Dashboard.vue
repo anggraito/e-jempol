@@ -2,8 +2,8 @@
   <div class="col-md-12 board">
     <div class="row">
       <div class="user-vote">
-        <button data-toggle="modal" class="btndis" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled">User 1</button>
-        <button data-toggle="modal" class="btndis" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled">User 2</button>
+        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled1">User 1</button>
+        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled2">User 2</button>
       </div>
       <!-- modal Vote -->
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
@@ -26,16 +26,22 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <button @click='reset'>Mulai lagi</button>
-      <button @click='masukinKeArray()'>Matiin anak orang</button>
-      <button @click='cariOrangMati'>Cek yang udah mati</button>
-      <button @click='jalaninReset'>Mulai Timer</button>
-      <button @click='stopReset'>Stop Timer</button>
+     
+      <div class="btn-setup">
+        <div class="img">
+          <img src="../assets/images/logo.jpg">
+        </div>
+        <button class="set" @click='reset'>Mulai lagi</button>
+        <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
+        <button class="set" @click='cariOrangMati'>Cek yang udah mati</button>
+        <button class="set" @click='jalaninReset'>Mulai Timer</button>
+        <button class="set" @click='stopReset'>Stop Timer</button>
+      </div>
       <div class="bottom">
         <div class="user-vote">
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled">User 3</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled">User 4</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled">User 5</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled3">User 3</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled4">User 4</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled5">User 5</button>
         </div>
       </div>
 
@@ -65,7 +71,11 @@ export default {
       listangka: [],
       playermati: [],
       hapusplayer: [],
-      isDisabled: false
+      isDisabled1: false,
+      isDisabled2: false,
+      isDisabled3: false,
+      isDisabled4: false,
+      isDisabled5: false
     }
   },
   methods: {
@@ -128,14 +138,29 @@ export default {
 
       console.log('ini players ya? -------------->', this.players)
       var disablePlayer = this.players
-      disablePlayer.forEach(p => {
-        console.log('ini per player', p)
-        console.log('nyawa player', p.nyawa)
-        if (p.nyawa === 0) {
-          console.log('im hereeeee')
-          this.isDisabled = true
+      console.log('disble', disablePlayer[0].nyawa)
+      console.log('valuenya apa? false', this.isDisabled1)
+      for (var a = 0; a < disablePlayer.length; a++) {
+        console.log('ini loopnya a', a)
+        console.log('ini nyawanya si 0', disablePlayer[0].nyawa)
+        console.log('valuenya apa? false', this.isDisabled1)
+        if (disablePlayer[0].nyawa === 0) {
+          this.isDisabled1 = true
         }
-      })
+        if (disablePlayer[1].nyawa === 0) {
+          this.isDisabled2 = true
+        }
+        if (disablePlayer[2].nyawa === 0) {
+          this.isDisabled3 = true
+        }
+        if (disablePlayer[3].nyawa === 0) {
+          this.isDisabled4 = true
+        }
+        if (disablePlayer[4].nyawa === 0) {
+          this.isDisabled5 = true
+        }
+      }
+
       // console.log('player mati', this.playermati['0']['.key'])
       // this.hapusplayer = this.playermati['0']['.key']
       // console.log('ini si hapus', this.hapusplayer)
@@ -182,6 +207,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.img{
+  text-align: center;
+  position: absolute;
+  top: -180px;
+}
+img{
+  width: 150px;;
+}
 .btn-setup{
   position: absolute;
   z-index: 99;
