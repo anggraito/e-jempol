@@ -2,8 +2,8 @@
   <div class="col-md-12 board">
     <div class="row">
       <div class="user-vote">
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled1">User 1</button>
-        <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled2">User 2</button>
+        <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(1)':disabled="isDisabled1"><img :src="imageSkull1"/><p> User 1</p></button>
+        <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(2)' :disabled="isDisabled2"><img :src="imageSkull2"/><p> User 2</p></button>
       </div>
       <!-- modal Vote -->
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
@@ -39,12 +39,11 @@
       </div>
       <div class="bottom">
         <div class="user-vote">
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled3">User 3</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled4">User 4</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled5">User 5</button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(3)' :disabled="isDisabled3"><img :src="imageSkull3"/><p> User 3</p></button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(4)' :disabled="isDisabled4"><img :src="imageSkull4"/><p> User 4</p></button>
+          <button data-toggle="modal" class="changes" data-target="#userVote" @click='assignPlayerNumber(5)' :disabled="isDisabled5"><img :src="imageSkull5"/><p> User 5</p></button>
         </div>
       </div>
-
 
     </div>
   </div>
@@ -75,7 +74,12 @@ export default {
       isDisabled2: false,
       isDisabled3: false,
       isDisabled4: false,
-      isDisabled5: false
+      isDisabled5: false,
+      imageSkull1: null,
+      imageSkull2: null,
+      imageSkull3: null,
+      imageSkull4: null,
+      imageSkull5: null
     }
   },
   methods: {
@@ -146,18 +150,23 @@ export default {
         console.log('valuenya apa? false', this.isDisabled1)
         if (disablePlayer[0].nyawa === 0) {
           this.isDisabled1 = true
+          this.imageSkull1 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
         }
         if (disablePlayer[1].nyawa === 0) {
           this.isDisabled2 = true
+          this.imageSkull2 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
         }
         if (disablePlayer[2].nyawa === 0) {
           this.isDisabled3 = true
+          this.imageSkull3 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
         }
         if (disablePlayer[3].nyawa === 0) {
           this.isDisabled4 = true
+          this.imageSkull4 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
         }
         if (disablePlayer[4].nyawa === 0) {
           this.isDisabled5 = true
+          this.imageSkull5 = 'http://www.freeiconspng.com/uploads/skull-and-crossbones-png-0.png'
         }
       }
 
