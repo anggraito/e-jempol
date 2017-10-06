@@ -28,10 +28,12 @@
       <button @click='reset'>Mulai lagi</button>
       <button @click='masukinKeArray()'>Matiin anak orang</button>
       <button @click='cariOrangMati'>Cek yang udah mati</button>
+      <button @click='jalaninReset'>Mulai Timer</button>
       <div class="bottom">
         <div class="user-vote">
           <button data-toggle="modal" class="die-user" data-target="#userVote" @click='assignPlayerNumber(3)'>User 3</button>
-          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(4)'>User 4</button>
+          <button data-toggle="modal" class="die-user" data-target="#userVote" @click='assignPlayerNumber(4)'>User 4</button>
+          <button data-toggle="modal" data-target="#userVote" @click='assignPlayerNumber(5)'>User 5</button>
         </div>
       </div>
 
@@ -57,7 +59,7 @@ export default {
     return {
       player: null,
       number: null,
-      giliran: 3,
+      giliran: 1,
       listangka: [],
       playermati: [],
       hapusplayer: []
@@ -78,6 +80,7 @@ export default {
       this.$db.ref(`player 2`).set({number: 0, nyawa: 1})
       this.$db.ref(`player 3`).set({number: 0, nyawa: 1})
       this.$db.ref(`player 4`).set({number: 0, nyawa: 1})
+      this.$db.ref(`player 5`).set({number: 0, nyawa: 1})
       this.listangka = []
       this.playermati = []
     },
@@ -148,6 +151,12 @@ export default {
           this.playermati.push(cari)
         }
       })
+    },
+    jalaninReset () {
+      this.reset()
+      this.masukinKeArray()
+      this.timer = setInterval(this.reset, 25000)
+      this.timer = setInterval(this.masukinKeArray, 20000)
     }
   }
 }

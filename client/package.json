@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "firebase": "^4.5.0",
+    "node-cron": "^1.2.1",
     "vue": "^2.4.2",
     "vue-facebook-signin-button": "^1.0.1",
     "vue-router": "^2.7.0",

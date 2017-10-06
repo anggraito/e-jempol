@@ -12,7 +12,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/todo', (err) => {
+mongoose.connect(`mongodb://aridwia:23aridwia@cluster0-shard-00-00-kpzry.mongodb.net:27017,cluster0-shard-00-01-kpzry.mongodb.net:27017,cluster0-shard-00-02-kpzry.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`, (err) => {
   if (!err) {
     console.log('Database connected')
   } else {
