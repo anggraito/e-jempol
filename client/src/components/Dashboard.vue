@@ -214,7 +214,7 @@ export default {
     }
   },
   created () {
-    if (localStorage.getItem('name') !== 'Fransiscus Yosua Surojo') {
+    if (localStorage.getItem('name') === 'Fransiscus Yosua Surojo') {
       console.log('sedang disini lohh ---->')
       this.btnKill = true
     }
