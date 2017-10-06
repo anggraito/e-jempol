@@ -9,10 +9,6 @@
       <div class="modal fade" id="userVote" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-body">
-              <small>Angka yang kamu pilih: </small>
-              <h2>5</h2>
-            </div>
             <h3>Pilih Angka: </h3>
             <div class="modal-footer">
               <button type="button" class="btn" value="1" @click='assignNumberChosen(1)'>1</button>
@@ -33,7 +29,7 @@
         </div>
         <button class="set" @click='reset'>Mulai lagi</button>
         <button class="set" @click='masukinKeArray()'>Matiin anak orang</button>
-        <button class="set" @click='cariOrangMati'>Cek yang udah mati</button>
+        <button class="set" @click='doLogout'>Logout</button>
         <button class="set" @click='jalaninReset'>Mulai Timer</button>
         <button class="set" @click='stopReset'>Stop Timer</button>
       </div>
@@ -85,6 +81,10 @@ export default {
   methods: {
     assignPlayerNumber (number) {
       this.player = number
+    },
+    doLogout () {
+      localStorage.clear()
+      this.$router.push('/')
     },
     assignNumberChosen (number) {
       this.number = number
@@ -303,5 +303,8 @@ img{
   height: 10%;
   width: 100%;
   margin: 20px 0;
+}
+.user-vote button{
+  border: 2px dashed #febb32;
 }
 </style>
