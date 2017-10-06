@@ -15,12 +15,12 @@ Vue.use(FBSignInButton)
 Vue.config.productionTip = false
 
 const config = {
-  apiKey: 'AIzaSyBWYmT9q1LHhDPSEGQ2foOpOxl8ny_AaBs',
-  authDomain: 'e-jempol.firebaseapp.com',
-  databaseURL: 'https://e-jempol.firebaseio.com',
-  projectId: 'e-jempol',
-  storageBucket: 'e-jempol.appspot.com',
-  messagingSenderId: '593156951308'
+  apiKey: 'AIzaSyC-vlVuDnJEuApFiDnhD035OPE0yz7XbUU',
+  authDomain: 'ejempol-1ae38.firebaseapp.com',
+  databaseURL: 'https://ejempol-1ae38.firebaseio.com',
+  projectId: 'ejempol-1ae38',
+  storageBucket: 'ejempol-1ae38.appspot.com',
+  messagingSenderId: '1001850137006'
 }
 const firebaseApp = firebase.initializeApp(config)
 
