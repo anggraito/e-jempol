@@ -163,7 +163,17 @@ export default {
     stopReset () {
       clearInterval(this.resetTimer)
       clearInterval(this.bunuhTimer)
+    },
+    checkLogin () {
+      if (localStorage.fbaccesstoken) {
+        this.$router.push('/dashboard')
+      } else {
+        this.$router.push('/')
+      }
     }
+  },
+  created () {
+    this.checkLogin()
   }
 }
 </script>

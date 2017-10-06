@@ -57,6 +57,8 @@ export default {
     checkLogin () {
       if (localStorage.fbaccesstoken) {
         this.$router.push('/dashboard')
+      } else {
+        this.$router.push('/')
       }
     }
   },
